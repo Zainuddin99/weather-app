@@ -3,13 +3,7 @@ import './App.css';
 const axios = require('axios')
 require('dotenv').config()
 
-let URL
-
-if(process.env.NODE_ENV === 'production'){
-  URL = process.env.PORT
-}else{
-  URL = 'http://localhost:5000'
-}
+const URL = process.env.NODE_ENV === 'production' ? '/' : "http://localhost:5000/"
 
 function App() {
   const [weatherValue, setWeatherValue] = useState(0)
@@ -36,7 +30,7 @@ function App() {
 
     try{
 
-      const response = await axios.get(`${URL}/weather/${lat}/${long}`)
+      const response = await axios.get(`${URL}weather/${lat}/${long}`)
       const temp = response.data.result.temp
 
       setWeatherValue(temp)
