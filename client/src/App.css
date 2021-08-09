@@ -1,0 +1,41 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+.heading{
+  color: blue;
+  font-family: normal;
+  text-decoration: underline;
+  margin: 60px;
+  font-size: 5rem;
+  font-weight: light;
+  font-style: italic
+}
+.middle-container{
+  width: 70%;
+  margin: auto;
+}
+.middle-container > *{
+  margin: 30px;
+}
+.weather-value{
+  
+  background-color: rgb(184, 184, 241);
+  color: darkblue;
+  padding: 20px;
+}
+.weather-type{
+  background-color: rgb(180, 230, 180);
+  color: rgb(21, 70, 21);
+  font-size: 4rem;
+  padding: 40px;
+  border: 1px solid darkgreen;
+}
+.error{
+  background-color: red;
+  color: white;
+  padding: 10px;
+  margin: 20px;
+}
