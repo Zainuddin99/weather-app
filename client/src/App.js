@@ -7,7 +7,7 @@ const URL = process.env.NODE_ENV === 'production' ? '/' : "http://localhost:5000
 
 function App() {
   const [weatherValue, setWeatherValue] = useState(0)
-  const [weatherType, setWeatherType] = useState(null)
+  const [weatherType, setWeatherType] = useState('')
   const [fetchingState, setFetchingState] = useState({loading: false, error: false})
 
   useEffect(()=>{
@@ -31,35 +31,15 @@ function App() {
     try{
 
       const response = await axios.get(`${URL}weather/${lat}/${long}`)
-      const temp = response.data.result.temp
+      const {temperature, weatherType} = response.data.result
 
-      setWeatherValue(temp)
+      setWeatherValue(temperature)
 
-      setWeatherType(()=>{
-        if(temp <= 0){
-          return 'Very cold'
-        }
-        if(temp > 0 && temp <= 30 ){
-          return 'Cold'
-        }
-        if(temp > 30 && temp <= 50){
-          return 'Cool'
-        }
-        if(temp > 50 && temp <= 80){
-          return 'Warm'
-        }
-        if(temp > 80 && temp <= 100){
-          return 'Hot'
-        }
-        if(temp > 100){
-          return "Very hot"
-        }
-      })
+      setWeatherType(weatherType)
 
       setFetchingState((prev)=>{
-      return {...prev, loading: false}
-
-    })
+        return {...prev, loading: false}
+      })
 
     }catch(err){
 
@@ -76,7 +56,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className='heading'>Weather app</h1>
+      <h1 className='heading' on>Weather app</h1>
       {     fetchingState.loading       ?       <h1>Loading...</h1>       :
         <div className='middle-container'>
           {

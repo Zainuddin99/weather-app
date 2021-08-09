@@ -4,14 +4,20 @@ require('dotenv').config()
 const axios = require('axios')
 const cors = require('cors')
 const path = require('path')
+const { checkWeatherType } = require('./functions')
 
 app.use(cors())
 
 app.get('/weather/:latitude/:longitude', async(req, res)=>{
     const {latitude, longitude} = req.params
     try {
-        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=504ba59a1b998210e823281b11a4febe`)
-        res.status(200).json({message: 'Successfull', result: response.data.main})
+        const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${process.env.API_KEY}`)
+        const temp = response.data.main.temp
+        const weatherType = checkWeatherType(temp)
+        res.status(200).json({message: 'Successfull', result: {
+            temperature: temp,
+            weatherType
+        }})
     } catch (error) {
         res.status(400).json({message: 'Something went wrong!'})
     }
